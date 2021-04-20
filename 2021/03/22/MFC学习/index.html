@@ -17,10 +17,13 @@
 <meta property="og:site_name" content="Tyh&#39;s Blog">
 <meta property="og:description" content="MFC学习">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20210419194309418.png">
+<meta property="og:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20210419194317298.png">
 <meta property="article:published_time" content="2021-03-22T13:35:19.000Z">
-<meta property="article:modified_time" content="2021-03-26T15:04:36.891Z">
+<meta property="article:modified_time" content="2021-04-19T12:05:59.361Z">
 <meta property="article:author" content="Tyhdada">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/ASUS/AppData/Roaming/Typora/typora-user-images/image-20210419194309418.png">
   
     <link rel="alternative" href="/atom.xml" title="Tyh&#39;s Blog" type="application/atom+xml">
   
@@ -234,7 +237,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.8k字</span>
+      <span class="post-count">2.3k字</span>
     </span>
   </span>
 
@@ -243,7 +246,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">8分</span>
+      <span class="post-count">10分</span>
     </span>
   </span>
 </div>
@@ -305,6 +308,47 @@
 <p>CString 到 char *</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CStringA tmp;</span><br><span class="line">tmp &#x3D; str;</span><br><span class="line">char* pp &#x3D; tmp.GetBuffer();</span><br></pre></td></tr></table></figure>
 
+<h3 id="第三节-利用向导创建MFC"><a href="#第三节-利用向导创建MFC" class="headerlink" title="第三节 利用向导创建MFC"></a>第三节 利用向导创建MFC</h3><p>❤ View在Frame的上层，所以要在View上编辑。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如果有了ondraw就不要写onpaint了</span><br><span class="line"></span><br><span class="line">否则，onpaint会盖过ondraw</span><br><span class="line"></span><br><span class="line">通常我们不写ONPAINT</span><br><span class="line"></span><br><span class="line">以afx开头的都是全局函数</span><br></pre></td></tr></table></figure>
+
+<p>绘图：</p>
+<p>ONDRAW     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pDC-&gt;TextOutW(100, 100, TEXT(&quot;为了部落&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>ONPAINT</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dc.TextOutW(100, 100, TEXT(&quot;为了联盟&quot;));</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ONCREATE负责注册并产生窗口</span><br><span class="line"></span><br><span class="line">CREATE负责相应产生窗口</span><br></pre></td></tr></table></figure>
+
+<h3 id="第四节-模态对话框与非模态对话框"><a href="#第四节-模态对话框与非模态对话框" class="headerlink" title="第四节 模态对话框与非模态对话框"></a>第四节 模态对话框与非模态对话框</h3><h4 id="主对话框"><a href="#主对话框" class="headerlink" title="主对话框"></a>主对话框</h4><p>APP 入口 Dlg 视觉</p>
+<p>两个按钮 ：button1模态 与 button2非模态</p>
+<p>修改内容：右键按钮/属性点击闪电图标/双击按钮</p>
+<p>插入窗口 窗口 右键 </p>
+<h4 id="模态对话框"><a href="#模态对话框" class="headerlink" title="模态对话框"></a>模态对话框</h4><p>1.在模态对话框创建新的类EXEC</p>
+<p>2.在主对话框的按钮上添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CDlogExec dlg;</span><br><span class="line">dlg.DoModal();</span><br></pre></td></tr></table></figure>
+
+<h4 id="非模态对话框"><a href="#非模态对话框" class="headerlink" title="非模态对话框"></a>非模态对话框</h4><p>1.在非模态对话框创建新的类SHOW</p>
+<p>2.在.h文件中写入SHOW dlg ；（类）</p>
+<p>3.dlg.Create写到onintDialog里面 （创建）</p>
+<p>4.dlg.ShowWindow(SW_SHOWNORMAL);进行显示</p>
+<h3 id="第五节-静态文本控件"><a href="#第五节-静态文本控件" class="headerlink" title="第五节 静态文本控件"></a>第五节 静态文本控件</h3><h5 id="static添加变量"><a href="#static添加变量" class="headerlink" title="static添加变量"></a>static添加变量</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">首先修改id</span><br><span class="line"></span><br><span class="line">然后添加id，加入作用名，private</span><br><span class="line"></span><br><span class="line">设置内容 setwindowtextw</span><br><span class="line"></span><br><span class="line">cstring str;</span><br><span class="line"></span><br><span class="line">获取内容 getwindowtextw</span><br><span class="line"></span><br><span class="line">显示messagebox</span><br></pre></td></tr></table></figure>
+
+<h5 id="文本显示图片"><a href="#文本显示图片" class="headerlink" title="文本显示图片"></a>文本显示图片</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">设置bmp文件</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;设置静态控件窗口风格为位图居中显示</span><br><span class="line">	img123.ModifyStyle(0xf, SS_BITMAP | SS_CENTERIMAGE);</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F;通过路径获取bitmap句柄</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># define HBMP(filepath,width,height) (HBITMAP)LoadImage(AfxGetInstanceHandle(),filepath,IMAGE_BITMAP,width,height,LR_LOADFROMFILE|LR_CREATEDIBSECTION)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;静态控件设置bitmap</span><br><span class="line">	img123.SetBitmap(HBMP(TEXT(&quot;.&#x2F;1617347238999.jpeg&quot;), 300, 250));</span><br><span class="line"></span><br><span class="line">C:\\Users\\ASUS\\source\\repos\\MFCApplication1\\9.bmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="第六节-编辑框的创建"><a href="#第六节-编辑框的创建" class="headerlink" title="第六节 编辑框的创建"></a>第六节 编辑框的创建</h3><h5 id="Editctrl属性"><a href="#Editctrl属性" class="headerlink" title="Editctrl属性"></a>Editctrl属性</h5><p>mutline多行</p>
+<p>want return</p>
+<p>滚动条 横向纵向 换行输入</p>
+<p>getWindowText setWindowText 设置和获取值</p>
+<p>默认小bug单行点击回车会退出（注释掉里面的代码）</p>
+<p>退出当前对话框</p>
+<p>CDialog::OnCk() </p>
+<p>OnCancel()</p>
+<p>添加变量时候 选择value</p>
+<p>本身关联的变量就是那个值</p>
+<p>UPdataDate(True)同步到变量中</p>
+<p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20210419194309418.png" alt="image-20210419194309418"></p>
+<p><img src="C:\Users\ASUS\AppData\Roaming\Typora\typora-user-images\image-20210419194317298.png" alt="image-20210419194317298"></p>
 
     
 
@@ -433,18 +477,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2021/03/22/Python%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2021/03/22/Hexo%E4%B8%8EWordpress/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          python
+          网站搭建
         
       </div>
     </a>
   
   
-    <a href="/2021/03/22/Hexo%E4%B8%8EWordpress/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">网站搭建</div>
+    <a href="/2021/03/22/Python%E7%AC%94%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python</div>
       <i class="icon-circle-right"></i>
     </a>
   
